@@ -8,9 +8,10 @@ loadEventListeners();
 
 function loadEventListeners() {
   form.addEventListener("submit", addTask);
+  taskList.addEventListener("click", removeTask);
+  clearBtn.addEventListener("click", clearTasks);
 }
 
-// Add Task
 function addTask(e) {
   if (taskInput.value === "") {
     alert("Add a task");
@@ -33,4 +34,18 @@ function addTask(e) {
   taskInput.value = "";
 
   e.preventDefault();
+}
+
+function removeTask(e) {
+  if (e.target.parentElement.classList.contains("delete-item")) {
+    if (confirm("Are you sure you want to remove this task?")) {
+      e.target.parentElement.parentElement.remove();
+    }
+  }
+}
+
+function clearTasks(e) {
+  while (taskList.firstChild) {
+    taskList.removeChild(taskList.firstChild);
+  }
 }
